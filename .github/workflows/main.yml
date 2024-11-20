@@ -31,7 +31,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           # Context points to the directory containing the Dockerfile
-          context: .github/workflows/.docker
+          context: .github/.docker
           # If the Dockerfile has a custom name, specify it here
           # file: .github/workflows/.docker/CustomDockerfile
           push: true
