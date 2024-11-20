@@ -33,4 +33,4 @@ jobs:
           context: .github/workflows  # Correct context path
           push: true
           platforms: linux/amd64,linux/arm64
-          tags: ${{ secrets.DOCKERHUB_USER }}/kucl22:actions
+          tags: ${{ secrets.DOCKERHUB_USER }}/myrunner:actions
