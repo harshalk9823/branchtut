@@ -30,10 +30,10 @@ jobs:
     needs: docker_1
     name: k8s deployment 
     runs-on: 
-      labels: kucl22
+      labels: myrunner
     steps:
       - name: create deployment
       # mkdir ${HOME}/.kube
-      #  echo ${{MYKUBECONFIG}} | base64  --decode > ${HOME}./kube/config
+      #  echo ${{MYCONFIG}} | base64  --decode > ${HOME}./kube/config
         
         run: kubectl create deployment githubaction --image=docker.io/httpd
