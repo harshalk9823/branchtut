@@ -1,40 +1,37 @@
-Github with k8s 
-name: Docker CI Learning - KUCL 
+name: Docker CI Learning - KUCL
 on:
   push:
+
 jobs:
   docker_1:
-    runs-on: ubuntu-latest 
-      #labels: kucl22 
-         
+    runs-on: ubuntu-latest
     steps:
-      -
-        name: Set up QEMU test
+      - name: Set up QEMU test
         uses: docker/setup-qemu-action@v3
-      -
-        name: Set up Docker Buildx
+      
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      -
-        name: Login to Docker Hub
+      
+      - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: Build and push
-        uses: docker/build-push-action@v6
+      
+      - name: Build and push
+        uses: docker/build-push-action@v4
         with:
           push: true
-          tags: ${{ secrets.DOCKERHUB_USER}}/kucl22:actions
+          tags: ${{ secrets.DOCKERHUB_USER }}/kucl22:actions
+
   deploy:
     needs: docker_1
-    name: k8s deployment 
-    runs-on: 
-      labels: kucl22
+    runs-on: ubuntu-latest
     steps:
-      - name: create deployment
-      # mkdir ${HOME}/.kube
-      #  echo ${{MYCONFIG}} | base64  --decode > ${HOME}./kube/config
-        
+      - name: Set up kubeconfig
+        run: |
+          mkdir -p ${HOME}/.kube
+          echo "${{ secrets.KUBECONFIG }}" | base64 --decode > ${HOME}/.kube/config
+      
+      - name: Create deployment
         run: kubectl create deployment githubaction --image=docker.io/httpd
-
