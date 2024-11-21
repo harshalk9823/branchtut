@@ -1,5 +1,5 @@
 Github with k8s 
-name: Docker CI Learning - KUCL 
+name:KUCL 
 on:
   push:
 jobs:
